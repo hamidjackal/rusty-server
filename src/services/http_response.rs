@@ -14,7 +14,7 @@ pub struct ResponseStrcuture<T, J> {
     success: bool,
     #[serde(skip_serializing_if = "Option::is_none")]
     result: Option<T>,
-    #[serde(flatten)]
+    #[serde(flatten, skip_serializing_if = "Option::is_none")]
     extra: Option<J>,
 }
 
@@ -79,10 +79,12 @@ impl HttpSuccess {
     // }
 
     pub fn success<T: Serialize>(result: Option<T>) -> Result<Json<Value>, Error> {
-        Ok(Json(json!({
-            "success": true,
-            "result" : result,
-            "extra": Some(()),
-        })))
+        let body = ResponseStrcuture {
+            success: true,
+            result,
+            extra: Some(()),
+        };
+
+        Ok(Json(json!(body)))
     }
 }

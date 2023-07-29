@@ -1,16 +1,19 @@
-mod controllers;
+mod modules;
 mod services;
 
-use axum::{routing::get, Router};
-use controllers::health_check::health_check;
+use axum::Router;
 use services::http_response::HttpError;
 use std::net::SocketAddr;
 
+use modules::router;
+
 #[tokio::main]
 async fn main() {
+    let health_check_router = router::get_routers();
+
     let router = Router::new();
     let app = router
-        .route("/health-check", get(health_check))
+        .nest("/api", health_check_router)
         .fallback(|| async { HttpError::not_found(None).unwrap() });
 
     let addr = SocketAddr::from(([127, 0, 0, 1], 3000));

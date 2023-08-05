@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:13-alpine
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=rsdb
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5432:5432"
+  # service:
+  #   build: ./server/.
+  #   command: >
+  #     sh -c  "cargo watch -x run"
+  #   environment:
+  #     WAIT_HOSTS: db:5432
+  #     WAIT_TIMEOUT: 60
+  #     WAIT_BEFORE: 10
+  #   volumes:
+  #     - ./server/:/app/
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - db

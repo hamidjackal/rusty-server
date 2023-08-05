@@ -1,1 +1,6 @@
-/target
+# Server Builds
+server/target
+
+# DB volumes
+data
+

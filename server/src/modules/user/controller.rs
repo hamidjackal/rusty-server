@@ -1,7 +1,6 @@
 use axum::extract::{Path, State};
 use axum::Json;
 use sea_orm::prelude::Uuid;
-use serde::Deserialize;
 use serde_json::Value;
 use validator::Validate;
 
@@ -10,14 +9,7 @@ use crate::AppState;
 
 use crate::modules::user::service::UserService as user_service;
 
-#[derive(Deserialize, Validate, Debug)]
-pub struct CreateUser {
-    #[validate(length(min = 1, message = "First name is required"))]
-    pub first_name: String,
-    pub last_name: String,
-    pub email: String,
-    pub password: String,
-}
+use super::serializer::CreateUser;
 
 pub async fn create_user(
     state: State<AppState>,

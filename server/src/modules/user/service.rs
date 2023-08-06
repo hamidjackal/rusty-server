@@ -3,8 +3,8 @@ use axum::Json;
 use sea_orm::{prelude::Uuid, DbConn};
 use serde_json::Value;
 
-use super::controller::CreateUser;
 use super::repository::UserRepository;
+use super::serializer::CreateUser;
 use crate::core::repository::{BaseRepo, RepoErr};
 
 pub struct UserService {}

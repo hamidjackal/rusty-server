@@ -1,6 +1,6 @@
 use axum::{http::Error, response::Response, Json};
 
-use hyper::{body::HttpBody, Body, StatusCode};
+use hyper::{Body, StatusCode};
 use serde::Serialize;
 use serde_json::{json, to_string, Value};
 
@@ -31,24 +31,24 @@ impl HttpError {
             .unwrap())
     }
 
-    pub fn internal_server_error<T: Serialize>(result: Option<T>) -> Result<Response<Body>, Error> {
-        let result = match result {
-            Some(result) => serde_json::to_string(&result).unwrap(),
-            None => serde_json::to_string(&"Internal server error").unwrap(),
-        };
-        println!("Error: {}", result);
-        let body = ResponseStrcuture {
-            success: false,
-            result: Some(result),
-            extra: Some(()),
-        };
+    // pub fn internal_server_error<T: Serialize>(result: Option<T>) -> Result<Response<Body>, Error> {
+    //     let result = match result {
+    //         Some(result) => serde_json::to_string(&result).unwrap(),
+    //         None => serde_json::to_string(&"Internal server error").unwrap(),
+    //     };
+    //     println!("Error: {}", result);
+    //     let body = ResponseStrcuture {
+    //         success: false,
+    //         result: Some(result),
+    //         extra: Some(()),
+    //     };
 
-        Ok(Response::builder()
-            .status(StatusCode::INTERNAL_SERVER_ERROR)
-            .header("Content-Type", "application/json")
-            .body(Body::from(to_string(&body).unwrap()))
-            .unwrap())
-    }
+    //     Ok(Response::builder()
+    //         .status(StatusCode::INTERNAL_SERVER_ERROR)
+    //         .header("Content-Type", "application/json")
+    //         .body(Body::from(to_string(&body).unwrap()))
+    //         .unwrap())
+    // }
 
     // pub fn invalid_request(msg: Option<String>) -> Result<Response<Body>, Error> {
     //     let body = ResponseStrcuture {
@@ -103,11 +103,11 @@ impl HttpSuccess {
     }
 }
 
-enum AppError {}
+// enum AppError {}
 
-#[derive(Debug)]
-enum HttpErrorType {
-    NotFound,
-    InternalServerError,
-    InvalidRequest,
-}
+// #[derive(Debug)]
+// enum HttpErrorType {
+//     NotFound,
+//     InternalServerError,
+//     InvalidRequest,
+// }

@@ -31,3 +31,6 @@ sea-orm = { version = "0.12.1", features = [
 migration = { path = "migration" }
 axum-macros = "0.3.8"
 validator = { version = "0.16.1", features = ["derive"] }
+pwhash = "1.0.0"
+chrono = "0.4.26"
+josekit = "0.8.3"

@@ -29,6 +29,12 @@ pub struct UpdateUser {
 }
 
 #[derive(Deserialize, Validate, Debug, Clone)]
+pub struct ChangePassword {
+    pub old_password: String,
+    pub new_password: String,
+}
+
+#[derive(Deserialize, Validate, Debug, Clone)]
 pub struct LoginCredentials {
     pub email: String,
     pub password: String,

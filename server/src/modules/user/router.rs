@@ -31,10 +31,11 @@ pub fn get_router() -> Router<AppState> {
                 .delete(UserController::delete_user),
         )
         .route("/", get(UserController::list_users))
-        .nest("/", create_user)
+        .nest("/", create_user.clone())
         .route_layer(middleware::from_fn(UserAuthorizer::auth));
 
     Router::new()
         .nest("/", authorized_routes)
         .nest("/login", login)
+        .nest("/signup", create_user)
 }
